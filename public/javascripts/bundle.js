@@ -119,6 +119,17 @@ eval("const React = __webpack_require__(/*! react */ \"./node_modules/react/inde
 
 /***/ }),
 
+/***/ "./app_server/components/Message.jsx":
+/*!*******************************************!*\
+  !*** ./app_server/components/Message.jsx ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nconst Message = props => {\n  return React.createElement(\"tr\", {\n    key: props.message._id\n  }, React.createElement(\"td\", null, props.index + 1), React.createElement(\"td\", null, props.message.name), React.createElement(\"td\", null, props.message.msg));\n};\n\nmodule.exports = Message;\n\n//# sourceURL=webpack:///./app_server/components/Message.jsx?");
+
+/***/ }),
+
 /***/ "./app_server/components/MsgBoard.jsx":
 /*!********************************************!*\
   !*** ./app_server/components/MsgBoard.jsx ***!
@@ -137,7 +148,7 @@ eval("const React = __webpack_require__(/*! react */ \"./node_modules/react/inde
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nconst MsgList = props => {\n  return React.createElement(\"table\", {\n    className: \"table table-striped table-bordered\"\n  }, React.createElement(\"thead\", null, React.createElement(\"tr\", null, React.createElement(\"th\", {\n    className: \"w-25\",\n    scope: \"col\"\n  }, \"#\"), React.createElement(\"th\", {\n    className: \"w-25\",\n    scope: \"col\"\n  }, \"Name\"), React.createElement(\"th\", {\n    className: \"w-50\",\n    scope: \"col\"\n  }, \"Message\"))), React.createElement(\"tbody\", null, props.messages.map((message, index) => React.createElement(\"tr\", {\n    key: message._id\n  }, React.createElement(\"td\", null, index + 1), React.createElement(\"td\", null, message.name), React.createElement(\"td\", null, message.msg)))));\n};\n\nmodule.exports = MsgList;\n\n//# sourceURL=webpack:///./app_server/components/MsgList.jsx?");
+eval("const React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nconst Message = __webpack_require__(/*! ./Message.jsx */ \"./app_server/components/Message.jsx\");\n\nconst MsgList = props => {\n  return React.createElement(\"table\", {\n    className: \"table table-striped table-bordered\"\n  }, React.createElement(\"thead\", null, React.createElement(\"tr\", null, React.createElement(\"th\", {\n    className: \"w-25\",\n    scope: \"col\"\n  }, \"#\"), React.createElement(\"th\", {\n    className: \"w-25\",\n    scope: \"col\"\n  }, \"Name\"), React.createElement(\"th\", {\n    className: \"w-50\",\n    scope: \"col\"\n  }, \"Message\"))), React.createElement(\"tbody\", null, props.messages.map((message, index) => React.createElement(Message, {\n    message: message,\n    index: index\n  }))));\n};\n\nmodule.exports = MsgList;\n\n//# sourceURL=webpack:///./app_server/components/MsgList.jsx?");
 
 /***/ }),
 
