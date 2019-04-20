@@ -56,15 +56,9 @@ class NewMsg extends React.Component {
     }
     
     handleText(event) {
-        if(event.target.id === "name") {
-            this.setState({
-                name: event.target.value
-            });
-        } else {
-            this.setState({
-                msg: event.target.value
-            });
-        }
+        this.setState({
+            msg: event.target.value
+        });
     }
 }
 

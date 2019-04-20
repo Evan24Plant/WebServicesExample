@@ -26,6 +26,7 @@ class MsgBoard extends React.Component {
         this.login = this.login.bind(this);
         this.register = this.register.bind(this);
         this.addNewUser = this.addNewUser.bind(this);
+        this.deleteAllMessages = this.deleteAllMessages.bind(this);
     }
 
     componentDidMount() {
@@ -74,7 +75,7 @@ class MsgBoard extends React.Component {
                     <div>
                         {form}
                         <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName} />
-                        <button className="btn btn-primary">Delete All Messages</button>
+                        <button onClick={this.deleteAllMessages} className="btn btn-primary">Delete All Messages</button>
                     </div>
                 )
             } else {
@@ -135,6 +136,10 @@ class MsgBoard extends React.Component {
         }).catch(error => {
             console.log(error);
         });
+    }
+
+    deleteAllMessages() {
+        console.log("Deleting all messages...");
     }
 
     handleHTTPErrors(response) {
