@@ -13,7 +13,7 @@ const MsgList = (props) => {
             </thead>
             <tbody>
                 {props.messages.map((message, index) => 
-                    <Message message={message} index={index}/>
+                    <Message key={message._id} message={message} index={index} loggedInUserId={props.loggedInUserId} loggedInUserName={props.loggedInUserName}/>
                 )}
             </tbody>
         </table>

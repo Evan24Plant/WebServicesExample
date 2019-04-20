@@ -71,7 +71,7 @@ class MsgBoard extends React.Component {
             return(
                 <div>
                     {form}
-                    <MsgList messages={this.state.messages} />
+                    <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName}/>
                 </div>
             )
         }

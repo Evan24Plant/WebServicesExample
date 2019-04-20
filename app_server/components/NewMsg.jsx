@@ -21,10 +21,10 @@ class NewMsg extends React.Component {
                         </label>
                     </div>
                     <div className="row">
-                        <div className="col-9">
+                        <div className="col-11">
                             <input id="msg" type="text" className="form-control" placeholder="Your Message" value={this.state.msg} onChange={this.handleText}/>
                         </div>
-                        <div className="col-3">
+                        <div className="col-1">
                             <button type="submit" className="btn btn-primary">
                                 Post
                             </button>
