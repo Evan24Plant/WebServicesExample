@@ -17,7 +17,9 @@ class MsgBoard extends React.Component {
                 password: ''
             },
             registrationForm: false,
-            registrationFail: false
+            registrationFail: false,
+            loggedInUserId: '',
+            loggedInUserName: ''
         };
         this.addMessage = this.addMessage.bind(this);
         this.login = this.login.bind(this);
@@ -63,7 +65,7 @@ class MsgBoard extends React.Component {
                     loginAttempts={this.state.loginAttempts}
                 />
             } else {
-                form = <NewMsg addMsgCallback={this.addMessage} />
+                form = <NewMsg addMsgCallback={this.addMessage} userName={this.state.loggedInUserName}/>
             }
 
             return(
@@ -151,6 +153,7 @@ class MsgBoard extends React.Component {
                     loginForm: false,
                     loginFail: false
                 });
+                return response;
             } else {
                 // Credentials are wrong
                 this.setState((state) => {
@@ -160,6 +163,12 @@ class MsgBoard extends React.Component {
                     });
                 });
             }
+        }).then(result=> result.json())
+        .then(result=> {
+            this.setState({
+                loggedInUserId: result._id,
+                loggedInUserName: result.username
+            });
         }).catch(error => {
             console.log(error);
         })

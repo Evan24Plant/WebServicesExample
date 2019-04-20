@@ -27,7 +27,8 @@ const registerNewUser = (req, res) => {
 }
 
 const loginUser = (req, res) => {
-    res.status(200).json({"api-msg": "Successfully Authenticated"});
+    //req.user.assign({"api-msg": "Successfully Authenticated"});
+    res.status(200).json(req.user);
 }
 
 passport.use(new BasicStrategy((email, password, done) => {

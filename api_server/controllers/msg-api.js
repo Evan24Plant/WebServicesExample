@@ -15,6 +15,10 @@ const getAllMessagesOrderedByLastPosted = (req, res) => {
     });
 };
 
+const getMessage = (req, res) => {
+    res.status(200).send("Successful API GET Request");
+};
+
 // POST Request Handler
 const addNewMessage = (req, res) => {
     messageModel
@@ -27,7 +31,27 @@ const addNewMessage = (req, res) => {
     });
 };
 
+// PUT Request Handler
+const updateMessage = (req, res) => {
+    res.status(200).send('Successful API PUT Request');
+};
+
+// DELETE Request Handler
+const deleteAllMessages = (req, res) => {
+    res.status(200).send('Successful API DELETE Request');
+};
+
+const deleteMessage = (req, res) => {
+    res.status(200).send('Successful API DELETE Request');
+};
+
+
+
 module.exports = {
     getAllMessagesOrderedByLastPosted,
-    addNewMessage
+    getMessage,
+    addNewMessage,
+    updateMessage,
+    deleteAllMessages,
+    deleteMessage
 }
