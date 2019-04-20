@@ -1,24 +1,34 @@
 const React = require('react');
 
-const Message = (props) => {
+class Message extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            loggedInUserName: props.loggedInUserName,
+            loggedInUserId: props.loggedInUserId,
+            message: props.message,
+            index: props.index
+        };
+    }
 
-
-    if(props.loggedInUserName == props.message.name){
-        return (
-            <tr>
-                <td>{props.index+1}</td>
-                <td>{props.message.name}</td>
-                <td>{props.message.msg}<br/><button className="btn btn-secondary">Edit</button>&nbsp;<button className="btn btn-primary">Delete</button></td>
-            </tr>
-        );
-    } else {
-        return (
-            <tr>
-                <td>{props.index+1}</td>
-                <td>{props.message.name}</td>
-                <td>{props.message.msg}</td>
-            </tr>
-        );
+    render() {
+        if(this.state.loggedInUserName == this.state.message.name){
+            return (
+                <tr>
+                    <td>{this.state.index+1}</td>
+                    <td>{this.state.message.name}</td>
+                    <td>{this.state.message.msg}<br/><button className="btn btn-secondary">Edit</button>&nbsp;<button className="btn btn-primary">Delete</button></td>
+                </tr>
+            );
+        } else {
+            return (
+                <tr>
+                    <td>{this.state.index+1}</td>
+                    <td>{this.state.message.name}</td>
+                    <td>{this.state.message.msg}</td>
+                </tr>
+            );
+        }
     }
 }
 
