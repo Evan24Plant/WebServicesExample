@@ -19,7 +19,8 @@ class MsgBoard extends React.Component {
             registrationForm: false,
             registrationFail: false,
             loggedInUserId: '',
-            loggedInUserName: ''
+            loggedInUserName: '',
+            loggedInAdmin: false
         };
         this.addMessage = this.addMessage.bind(this);
         this.login = this.login.bind(this);
@@ -68,12 +69,22 @@ class MsgBoard extends React.Component {
                 form = <NewMsg addMsgCallback={this.addMessage} userName={this.state.loggedInUserName}/>
             }
 
-            return(
-                <div>
-                    {form}
-                    <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName}/>
-                </div>
-            )
+            if (this.state.loggedInAdmin) {
+                return(
+                    <div>
+                        {form}
+                        <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName} />
+                        <button className="btn btn-primary">Delete All Messages</button>
+                    </div>
+                )
+            } else {
+                return(
+                    <div>
+                        {form}
+                        <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName} />
+                    </div>
+                )
+            }            
         }
     }
 
@@ -167,7 +178,8 @@ class MsgBoard extends React.Component {
         .then(result=> {
             this.setState({
                 loggedInUserId: result._id,
-                loggedInUserName: result.username
+                loggedInUserName: result.username,
+                loggedInAdmin: result.admin
             });
         }).catch(error => {
             console.log(error);
