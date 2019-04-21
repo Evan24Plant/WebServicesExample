@@ -97,10 +97,17 @@ class Message extends React.Component {
     }
 
     updateMessage() {
-        console.log("Updating message: " + this.props.message.msg + " -> " + this.state.message.msg);
+        console.log("Updating message: " + this.props.message.msg + " -> " + this.state.message.msg + "\nSending control to MsgBoard for API call.");
+
+        let msg = this.state.message.msg;
+        msg.trim();
+        
         this.setState({
-            editingMessage: false
+            editingMessage: false,
+            message: { "__v": this.state.message.__v, "_id": this.state.message._id, "name": this.state.message.name, "msg": msg }
         });
+
+        this.props.updateMsgCallback(this.state.message);
     }
 }
 

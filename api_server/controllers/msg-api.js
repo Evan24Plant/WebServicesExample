@@ -3,8 +3,7 @@ const messageModel = mongoose.model('message');
 
 // GET Request Handler
 const getAllMessagesOrderedByLastPosted = (req, res) => {
-    messageModel
-    .find()
+    messageModel.find()
     .sort( {'_id': -1} )
     .exec( (err, messages) => {
         if (err) {
@@ -21,8 +20,7 @@ const getMessage = (req, res) => {
 
 // POST Request Handler
 const addNewMessage = (req, res) => {
-    messageModel
-    .create( req.body, (err, message) => {
+    messageModel.create( req.body, (err, message) => {
         if (err) {
             res.status(400).json(err);
         } else {
@@ -33,7 +31,13 @@ const addNewMessage = (req, res) => {
 
 // PUT Request Handler
 const updateMessage = (req, res) => {
-    res.status(200).send('Successful API PUT Request');
+    messageModel.findOneAndUpdate({ "_id": req.body._id }, req.body, (err, message) => {
+        if (err) {
+            res.status(400).json(err);
+        } else {
+            res.status(200).json(message);
+        }
+    });
 };
 
 // DELETE Request Handler
