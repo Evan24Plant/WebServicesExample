@@ -80,6 +80,7 @@ class Message extends React.Component {
 
     deleteMessage() {
         console.log("Delete message: " + this.state.message.msg);
+        this.props.deleteMsgCallback(this.state.message);
     }
 
     editMessage() {

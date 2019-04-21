@@ -31,7 +31,7 @@ const addNewMessage = (req, res) => {
 
 // PUT Request Handler
 const updateMessage = (req, res) => {
-    messageModel.findOneAndUpdate({ "_id": req.body._id }, req.body, (err, message) => {
+    messageModel.findOneAndUpdate(req.body._id, req.body, (err, message) => {
         if (err) {
             res.status(400).json(err);
         } else {
@@ -42,11 +42,23 @@ const updateMessage = (req, res) => {
 
 // DELETE Request Handler
 const deleteAllMessages = (req, res) => {
-    res.status(200).send('Successful API DELETE Request');
+    messageModel.deleteMany({}, (err, message) => {
+        if (err) {
+            res.status(400).json(err);
+        } else {
+            res.status(200).json(message);
+        }
+    });
 };
 
 const deleteMessage = (req, res) => {
-    res.status(200).send('Successful API DELETE Request');
+    messageModel.findByIdAndRemove({ "_id": req.body._id }, (err, message) => {
+        if (err) {
+            res.status(400).json(err);
+        } else {
+            res.status(200).json(message);
+        }
+    });
 };
 
 

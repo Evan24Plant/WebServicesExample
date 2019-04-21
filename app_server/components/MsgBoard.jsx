@@ -27,6 +27,7 @@ class MsgBoard extends React.Component {
         this.register = this.register.bind(this);
         this.addNewUser = this.addNewUser.bind(this);
         this.deleteAllMessages = this.deleteAllMessages.bind(this);
+        this.deleteMessage = this.deleteMessage.bind(this);
         this.updateMessage = this.updateMessage.bind(this);
     }
 
@@ -75,7 +76,7 @@ class MsgBoard extends React.Component {
                 return(
                     <div>
                         {form}
-                        <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName} updateMsgCallback={this.updateMessage} />
+                        <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName} deleteMsgCallback={this.deleteMessage} updateMsgCallback={this.updateMessage} />
                         <button onClick={this.deleteAllMessages} className="btn btn-primary">Delete All Messages</button>
                     </div>
                 )
@@ -83,7 +84,7 @@ class MsgBoard extends React.Component {
                 return(
                     <div>
                         {form}
-                        <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName} updateMsgCallback={this.updateMessage} />
+                        <MsgList messages={this.state.messages} loggedInUserId={this.state.loggedInUserId} loggedInUserName={this.state.loggedInUserName} deleteMsgCallback={this.deleteMessage} updateMsgCallback={this.updateMessage} />
                     </div>
                 )
             }            
@@ -141,6 +142,56 @@ class MsgBoard extends React.Component {
 
     deleteAllMessages() {
         console.log("Deleting all messages...");
+        const basicString = this.state.userCredentials.email + ':' + this.state.userCredentials.password;
+
+        // update back-end data
+        fetch(`${process.env.API_URL}/msgs/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(basicString)
+            }
+        })
+        .then(response=> this.handleHTTPErrors(response))
+        .then(result => result.json())
+        .then(result => {
+            console.log("Deleted all messages.");
+
+            this.state.messages.splice(0);
+            this.setState({});
+        })
+        .catch(error=> {
+            console.log(error);
+        });    
+    }
+
+    deleteMessage(message) {
+        const basicString = this.state.userCredentials.email + ':' + this.state.userCredentials.password;
+        const msgId = message._id;
+
+        // update back-end data
+        fetch(`${process.env.API_URL}/msgs/${msgId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(basicString)
+            },
+            body: JSON.stringify(message)
+        })
+        .then(response=> this.handleHTTPErrors(response))
+        .then(result => result.json())
+        .then(result => {
+            console.log("Deleted: " + JSON.stringify(result));
+            const msgArrIndex = this.state.messages.findIndex( (element) => {
+                return (element._id == result._id);
+            });
+
+            this.state.messages.splice(msgArrIndex, 1);
+            this.setState({});
+        })
+        .catch(error=> {
+            console.log(error);
+        });    
     }
 
     handleHTTPErrors(response) {
