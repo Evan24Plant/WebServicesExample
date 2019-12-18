@@ -1,3 +1,5 @@
+This is a simple message board created for my Web Services final project at Camosun College.
+
 To run locally, use:
 npm run-script dev
   - http://localhost:3000/api/v1 is set as the API URL in the .env file when running this script
